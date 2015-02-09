@@ -14,7 +14,7 @@
  * Description: Create Beautifyl Admin Themes With Live Admin Customizer
  * Author:      Varun Sridharan
  * Author URI:  http://varunsridharan.in/
- * Version:     0.2
+ * Version:     0.3
  * License:     GPL
  */
 
@@ -251,11 +251,13 @@ class Live_Admin_Customizer {
 	 * @since 0.3
 	 */
 	public function wp_admin_bar_css(){
-		$current_userid = get_current_user_id( );
-		$user_style = get_user_meta($current_userid, 'admin_color', true);
-		$src = $this->get_admin_css_files($user_style); 
-		if($src) {wp_enqueue_style('live_admin_customizer_admin_bar_css',$src);}
-		return false;
+        if(apply_filters('lac_front_adminbar_css',true )){
+            $current_userid = get_current_user_id( );
+            $user_style = get_user_meta($current_userid, 'admin_color', true);
+            $src = $this->get_admin_css_files($user_style); 
+            if($src) {wp_enqueue_style('live_admin_customizer_admin_bar_css',$src);}
+            return false;
+        }
 	}
 	
     /**
